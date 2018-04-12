@@ -9,7 +9,8 @@ const serverConfig = require('./webpack.server.config')
 const readFile = (fs, file) => {
   try {
     return fs.readFileSync(path.join(clientConfig.output.path, file), 'utf-8')
-  } catch (e) {}
+  } catch (e) {
+  }
 }
 
 module.exports = function setupDevServer (app, templatePath, cb) {
@@ -18,7 +19,9 @@ module.exports = function setupDevServer (app, templatePath, cb) {
   let clientManifest
 
   let ready
-  const readyPromise = new Promise(r => { ready = r })
+  const readyPromise = new Promise(r => {
+    ready = r
+  })
   const update = () => {
     if (bundle && clientManifest) {
       ready()
@@ -65,7 +68,7 @@ module.exports = function setupDevServer (app, templatePath, cb) {
   })
 
   // hot middleware
-  app.use(require('webpack-hot-middleware')(clientCompiler, { heartbeat: 5000 }))
+  app.use(require('webpack-hot-middleware')(clientCompiler, {heartbeat: 5000}))
 
   // watch and update server renderer
   const serverCompiler = webpack(serverConfig)

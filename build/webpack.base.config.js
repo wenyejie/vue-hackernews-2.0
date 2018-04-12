@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
+const {VueLoaderPlugin} = require('vue-loader')
 
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -49,15 +49,15 @@ module.exports = {
         test: /\.styl(us)?$/,
         use: isProd
           ? ExtractTextPlugin.extract({
-              use: [
-                {
-                  loader: 'css-loader',
-                  options: { minimize: true }
-                },
-                'stylus-loader'
-              ],
-              fallback: 'vue-style-loader'
-            })
+            use: [
+              {
+                loader: 'css-loader',
+                options: {minimize: true}
+              },
+              'stylus-loader'
+            ],
+            fallback: 'vue-style-loader'
+          })
           : ['vue-style-loader', 'css-loader', 'stylus-loader']
       },
     ]
@@ -68,17 +68,17 @@ module.exports = {
   },
   plugins: isProd
     ? [
-        new VueLoaderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-          compress: { warnings: false }
-        }),
-        new webpack.optimize.ModuleConcatenationPlugin(),
-        new ExtractTextPlugin({
-          filename: 'common.[chunkhash].css'
-        })
-      ]
+      new VueLoaderPlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {warnings: false}
+      }),
+      new webpack.optimize.ModuleConcatenationPlugin(),
+      new ExtractTextPlugin({
+        filename: 'common.[chunkhash].css'
+      })
+    ]
     : [
-        new VueLoaderPlugin(),
-        new FriendlyErrorsPlugin()
-      ]
+      new VueLoaderPlugin(),
+      new FriendlyErrorsPlugin()
+    ]
 }
